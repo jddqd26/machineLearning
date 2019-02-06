@@ -24,13 +24,12 @@ def compute_Phi(x,p):
     '''
     #########################################
     ## INSERT YOUR CODE HERE
-    temp = np.power(x, 0)
-
-
-
+    Phi = np.power(x, 0)
+    for i in range(1, p):
+        Phi = np.concatenate((Phi, np.power(x, i)), axis=1)
 
     #########################################
-    return Phi 
+    return Phi
 
 
 #--------------------------
@@ -47,6 +46,8 @@ def least_square(Phi, y):
     '''
     #########################################
     ## INSERT YOUR CODE HERE
+    w = np.linalg.inv(np.dot(Phi.T, Phi))
+    w = np.dot(w, Phi.T) * y
 
     #########################################
     return w 
@@ -69,8 +70,9 @@ def ridge_regression(Phi, y, alpha=0.001):
     '''
     #########################################
     ## INSERT YOUR CODE HERE
-
-
+    p = Phi.shape[1]
+    w = np.linalg.inv(np.dot(Phi.T, Phi) + alpha * np.identity(p))
+    w = np.dot(w, Phi.T) * y
     #########################################
     return w 
 
